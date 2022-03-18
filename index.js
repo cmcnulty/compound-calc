@@ -1,17 +1,40 @@
-module.exports = (initial, amount, years, interest, period = 1, contributeBeforeInterest = false) => {
+// periods represents divisions of year - e.g. 1 = annual, 2 = semi-annual, 4 = quarterly, 12 = monthly
+// if accrual period = 1, and contribution = 12, that means that the contribution will occur 12 times,
+// but interest will only occur once (might as well have been annual contribution)
+// But, if contribution = monthly, and accrual is quarterly
+// contributionAccrualAmount = amount * (contributionPeriod/accrualPeriod)
+// $100 monthly contribution, quarterly accrual = $100 * (12/4) = $300/accrual period = [300,300,300,300]
+// $100 semi-annual contribution, bimonthly accrual = $100 * (2/6) = [100,0,0,100,0,0]
+
+module.exports = (initial, amount, years, interest, accrualPeriod = 1, contributionPeriod = 1, contributeBeforeInterest = false) => {
     initial = Number(initial)*100;
-    years = Number(years) * period;
+    years = Number(years);
     interest = Number(interest);
-    period = Number(period);
-    rate = interest/period;
+    rate = interest/accrualPeriod;
+    periods = accrualPeriod * years;
+    offsetContribution = contributeBeforeInterest ? 0 : 1;
 
     // amount can be a flat amount, an array of amounts, or a function returning an array of amounts
     const emptyYears = (() => {
-        if (typeof amount === "number") {
-            return Array(years).fill(amount/period);
+        if (typeof amount === 'number') {
+
+            if(contributionPeriod >= accrualPeriod){
+                // if we're contributing faster than we're accruing interest, roll up the contributions per accrual period
+                return Array(periods).fill(amount * (contributionPeriod/accrualPeriod));
+            } else {
+                // otherwise populate the array with mix of zeroes and contributions
+                return [...Array(periods)].map( (x, i) => {
+                    if ( (i+offsetContribution) % ((12/contributionPeriod)*(accrualPeriod/12))===0) {
+                        return amount;
+                    } else {
+                        return 0;
+                    }
+                });
+            }
+
         } else if(Array.isArray(amount)) {
             return [...Array(years)].map( (x, i) => amount[i] || 0);
-        } else if (typeof amount === "function"){
+        } else if (typeof amount === 'function'){
             return [...Array(years)].map( amount );
         }
     })().map( x => x*100);
@@ -20,7 +43,7 @@ module.exports = (initial, amount, years, interest, period = 1, contributeBefore
     emptyYears.unshift(0);
 
     const principalTotals = [...emptyYears].map((curr, i, array) => {
-        if(array[i-1]) {
+        if(array[i-1] !== undefined) {
             return array[i] += array[i-1];
         } else {
             return array[i] = initial;
@@ -30,7 +53,7 @@ module.exports = (initial, amount, years, interest, period = 1, contributeBefore
     const annuityTotals = [...emptyYears].map((curr, i, arr) => {
         const offsetBefore = contributeBeforeInterest ? curr : 0;
         const offsetAfter = contributeBeforeInterest ? 0 : curr;
-        if(arr[i-1]) {
+        if(arr[i-1] !== undefined) {
             const totalFromAnnuity = (1+rate) * (arr[i-1] + offsetBefore);
             return arr[i] = totalFromAnnuity + offsetAfter;
         } else {
