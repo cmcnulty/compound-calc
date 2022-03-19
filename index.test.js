@@ -55,16 +55,45 @@ describe('index.js', () => {
     expect(prod.total).toEqual(1320);
   });
 
-  test('Annual contribution, monthly accruals', () => {
+  test('Annual contribution, monthly accruals, interest after contribution', () => {
     const x = 100;
     const prod = calc(0,x,1,.1,12,1, true);
     expect(prod.total).toEqual(110.47);
   });
 
-  test('Annual contribution, monthly accruals', () => {
+  test('Annual contribution, monthly accruals, interest before contribution', () => {
     const x = 100;
     const prod = calc(0,x,1,.1,12,1, false);
     expect(prod.total).toEqual(100);
+  });
+
+  test('Manually inputted contributions, flat',() => {
+    const x = [...Array(10).fill(100)];
+    const result = calc(1000,x,10,.05,1,1, false).total;
+    expect(result).toEqual(2886.68);
+  });
+
+  test('Manually inputted contributions, increasing',() => {
+    const increasingConts = calc(1000,0,10,.1,1,1, false).result;
+    const result = calc(1000,increasingConts,10,.1,1,1, true);
+    // verified result with https://www.calcxml.com/do/interest-calculator?skn=#detailedResultsTop
+    expect(result.total).toEqual(28531.17);
+  });
+
+  test('Contributions function, increasing',() => {
+    const increasingConts = calc(100,0,10,.05,1,1, false).result;
+    const x = (row, i) => {
+      return increasingConts[i];
+    };
+    const result = calc(1000,x,10,.05,1,1, false);
+    expect(result.total).toEqual(3180.22);
+  });
+
+  // https://www.vertex42.com/Calculators/compound-interest-calculator.html#rate-per-period
+  test('Quarterly contributions, monthly interest',() => {
+    const result = calc(0,100,1,.1,12,4, false);
+    console.log(result);
+    expect(result.total).toEqual(415.38);
   });
 
 });
