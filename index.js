@@ -33,9 +33,9 @@ module.exports = (initial, amount, years, interest, accrualPeriod = 1, contribut
             }
 
         } else if(Array.isArray(amount)) {
-            return [...Array(years)].map( (x, i) => amount[i] || 0);
+            return [...Array(periods)].map( (x, i) => amount[i] || 0);
         } else if (typeof amount === 'function'){
-            return [...Array(years)].map( amount );
+            return [...Array(periods)].map( amount );
         }
     })().map( x => x*100);
 
