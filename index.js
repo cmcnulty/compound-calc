@@ -1,3 +1,5 @@
+"use strict";
+
 // periods represents divisions of year - e.g. 1 = annual, 2 = semi-annual, 4 = quarterly, 12 = monthly
 // if accrual period = 1, and contribution = 12, that means that the contribution will occur 12 times,
 // but interest will only occur once (might as well have been annual contribution)
@@ -10,9 +12,10 @@ module.exports = (initial, amount, years, interest, accrualPeriod = 1, contribut
     initial = Number(initial)*100;
     years = Number(years);
     interest = Number(interest);
-    rate = interest/accrualPeriod;
-    periods = accrualPeriod * years;
-    offsetContribution = contributeBeforeInterest ? 0 : 1;
+
+    const periods = accrualPeriod * years;
+    const offsetContribution = contributeBeforeInterest ? 0 : 1;
+    const rate = interest/accrualPeriod;
 
     // amount can be a flat amount, an array of amounts, or a function returning an array of amounts
     const emptyYears = (() => {
