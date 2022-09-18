@@ -45,14 +45,6 @@ module.exports = (initial, amount, years, interest, accrualPeriod = 1, contribut
     // add "year-zero" to beginning of years
     emptyYears.unshift(0);
 
-    const principalTotals = [...emptyYears].map((curr, i, array) => {
-        if(array[i-1] !== undefined) {
-            return array[i] += array[i-1];
-        } else {
-            return array[i] = initial;
-        }
-    }).map( x => x/100);
-
     const annuityTotals = [...emptyYears].map((curr, i, arr) => {
         const offsetBefore = contributeBeforeInterest ? curr : 0;
         const offsetAfter = contributeBeforeInterest ? 0 : curr;
@@ -64,5 +56,9 @@ module.exports = (initial, amount, years, interest, accrualPeriod = 1, contribut
         }
     }).map( x => Math.round(x)/100);
 
-    return {result: annuityTotals, principal: principalTotals, total: annuityTotals[annuityTotals.length - 1]};
+    return {
+        result: annuityTotals,
+        principal: emptyYears.map( x => Math.round(x)/100),
+        total: annuityTotals[annuityTotals.length - 1]
+    };
 }
