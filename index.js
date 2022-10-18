@@ -1,5 +1,3 @@
-"use strict";
-
 // periods represents divisions of year - e.g. 1 = annual, 2 = semi-annual, 4 = quarterly, 12 = monthly
 // if accrual period = 1, and contribution = 12, that means that the contribution will occur 12 times,
 // but interest will only occur once (might as well have been annual contribution)
@@ -8,7 +6,7 @@
 // $100 monthly contribution, quarterly accrual = $100 * (12/4) = $300/accrual period = [300,300,300,300]
 // $100 semi-annual contribution, bimonthly accrual = $100 * (2/6) = [100,0,0,100,0,0]
 
-module.exports = (initial, amount, years, interest, accrualPeriod = 1, contributionPeriod = 1, contributeBeforeInterest = false) => {
+const compound = (initial, amount, years, interest, accrualPeriod = 1, contributionPeriod = 1, contributeBeforeInterest = false) => {
     initial = Number(initial)*100;
     years = Number(years);
     interest = Number(interest);
@@ -62,3 +60,5 @@ module.exports = (initial, amount, years, interest, accrualPeriod = 1, contribut
         total: annuityTotals[annuityTotals.length - 1]
     };
 }
+
+export {compound};

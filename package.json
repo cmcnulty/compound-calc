@@ -1,15 +1,16 @@
 {
   "name": "compound-calc",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Compound Interest calculator that allows dynamic series of contributions",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch"
   },
   "keywords": [
     "interest",
-    "compund",
+    "compound",
     "calculator"
   ],
   "author": "Charles McNulty",
