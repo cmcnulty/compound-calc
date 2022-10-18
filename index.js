@@ -61,4 +61,4 @@ const compound = (initial, amount, years, interest, accrualPeriod = 1, contribut
     };
 }
 
-export {compound};
+export default compound;
