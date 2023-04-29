@@ -1,6 +1,6 @@
 
 
-import calc, {Contributor} from '../src/index';
+import {compound as calc, Contributor} from '../src/index';
 
 /* Independently determined expected values with:
 * http://www.moneychimp.com/calculator/compound_interest_calculator.htm

@@ -12,7 +12,7 @@ type Compounded = {
     total: number;
 };
 
-function compound (initial: number, amount: number|number[]|Contributor, years: number, interest: number, accrualPeriod:number = 1, contributionPeriod:number = 1, contributeBeforeInterest:boolean = false): Compounded {
+export function compound (initial: number, amount: number|number[]|Contributor, years: number, interest: number, accrualPeriod:number = 1, contributionPeriod:number = 1, contributeBeforeInterest:boolean = false): Compounded {
     initial = Number(initial)*100;
     years = Number(years);
     interest = Number(interest);
@@ -67,5 +67,3 @@ function compound (initial: number, amount: number|number[]|Contributor, years: 
         total: annuityTotals[annuityTotals.length - 1]
     };
 }
-
-export default compound;
