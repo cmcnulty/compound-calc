@@ -4,5 +4,5 @@ type Compounded = {
     principal: number[];
     total: number;
 };
-declare const compound: (initial: number, amount: number | number[] | Contributor, years: number, interest: number, accrualPeriod?: number, contributionPeriod?: number, contributeBeforeInterest?: boolean) => Compounded;
+declare function compound(initial: number, amount: number | number[] | Contributor, years: number, interest: number, accrualPeriod?: number, contributionPeriod?: number, contributeBeforeInterest?: boolean): Compounded;
 export default compound;

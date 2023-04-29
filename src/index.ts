@@ -12,7 +12,7 @@ type Compounded = {
     total: number;
 };
 
-const compound = (initial: number, amount: number|number[]|Contributor, years: number, interest: number, accrualPeriod:number = 1, contributionPeriod:number = 1, contributeBeforeInterest:boolean = false): Compounded => {
+function compound (initial: number, amount: number|number[]|Contributor, years: number, interest: number, accrualPeriod:number = 1, contributionPeriod:number = 1, contributeBeforeInterest:boolean = false): Compounded {
     initial = Number(initial)*100;
     years = Number(years);
     interest = Number(interest);
