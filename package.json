@@ -1,6 +1,6 @@
 {
   "name": "compound-calc",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Compound Interest calculator that allows dynamic series of contributions",
   "main": "dist/index.js",
   "scripts": {
