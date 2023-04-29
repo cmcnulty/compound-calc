@@ -5,11 +5,11 @@
 // contributionAccrualAmount = amount * (contributionPeriod/accrualPeriod)
 // $100 monthly contribution, quarterly accrual = $100 * (12/4) = $300/accrual period = [300,300,300,300]
 // $100 semi-annual contribution, bimonthly accrual = $100 * (2/6) = [100,0,0,100,0,0]
-type Contributor = (period: number) => number;
+export type Contributor = (period: number, i: number) => number;
 type Compounded = {
-    result: number[],
-    principal: number[],
-    total: number
+    result: number[];
+    principal: number[];
+    total: number;
 };
 
 const compound = (initial: number, amount: number|number[]|Contributor, years: number, interest: number, accrualPeriod:number = 1, contributionPeriod:number = 1, contributeBeforeInterest:boolean = false): Compounded => {
