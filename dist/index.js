@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.compound = void 0;
-function compound(initial, amount, years, interest, accrualPeriod = 1, contributionPeriod = 1, contributeBeforeInterest = false) {
+export function compound(initial, amount, years, interest, accrualPeriod = 1, contributionPeriod = 1, contributeBeforeInterest = false) {
     initial = Number(initial) * 100;
     years = Number(years);
     interest = Number(interest);
@@ -54,4 +51,3 @@ function compound(initial, amount, years, interest, accrualPeriod = 1, contribut
         total: annuityTotals[annuityTotals.length - 1]
     };
 }
-exports.compound = compound;
