@@ -1,4 +1,4 @@
-import calc from './index.js';
+import {compound as calc, Contributor} from '../src/index';
 
 /* Independently determined expected values with:
 * http://www.moneychimp.com/calculator/compound_interest_calculator.htm
@@ -82,7 +82,7 @@ describe('index.js', () => {
 
   test('Contributions function, increasing',() => {
     const increasingConts = calc(100,0,10,.05,1,1, false).result;
-    const x = (row, i) => {
+    const x = (_row: any, i: number) => {
       return increasingConts[i];
     };
     const result = calc(1000,x,10,.05,1,1, false);

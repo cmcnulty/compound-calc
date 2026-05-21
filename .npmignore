@@ -1,0 +1,16 @@
+# Files and directories to exclude from the npm package
+
+# TypeScript source files
+src/*.ts
+
+# TypeScript configuration files
+tsconfig.json
+jest.config.js
+
+# Node.js modules and package lockfiles
+node_modules/
+package-lock.json
+
+# Development and testing files
+test/
+
