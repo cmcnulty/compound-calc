@@ -1,5 +1,3 @@
-
-
 import {compound as calc, Contributor} from '../src/index';
 
 /* Independently determined expected values with:
@@ -99,4 +97,3 @@ describe('index.js', () => {
   });
 
 });
-
