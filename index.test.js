@@ -1,4 +1,4 @@
-const calc = require('./index');
+import calc from './index.js';
 
 /* Independently determined expected values with:
 * http://www.moneychimp.com/calculator/compound_interest_calculator.htm
